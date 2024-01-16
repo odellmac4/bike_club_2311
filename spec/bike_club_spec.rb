@@ -35,4 +35,35 @@ RSpec.describe BikeClub do
             expect(@bike_club.bikers).to eq ([@biker1 , @biker2])
         end
     end
+
+    describe '#most_rides' do
+        it 'can tell us which Biker has logged the most rides' do
+            @biker1.learn_terrain!(:gravel)
+            @biker1.learn_terrain!(:hills)
+            @biker2.learn_terrain!(:gravel)
+            @biker2.learn_terrain!(:hills)
+            
+            @biker1.log_ride(@ride1, 92.5)
+            @biker1.log_ride(@ride1, 91.1)
+            @biker1.log_ride(@ride1, 60.9)
+            @biker1.log_ride(@ride2, 59.7)
+            @biker2.log_ride(@ride2, 61.6)
+            @biker2.log_ride(@ride2, 62.5)
+
+            expect(@biker1.rides).to eq ({
+                @ride1 => [92.5, 91.1, 60.9],
+                @ride2 => [59.7]
+            })
+
+            expect(@biker2.rides).to eq ({
+                @ride2 => [61.6, 62.5]
+            })
+
+            @bike_club.add_biker(@biker1)
+            @bike_club.add_biker(@biker2)
+
+            expect(@bike_club.most_rides).to eq (@biker1)
+            require'pry';binding.pry
+        end
+    end
 end
