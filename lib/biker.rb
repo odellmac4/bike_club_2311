@@ -19,4 +19,18 @@ class Biker
         end
         @rides
     end
+
+    def lowest_time(ride)
+       low_time = @rides[ride].min_by do |time|
+            time  
+        end
+        low_time
+    end
+    
+    
+    def personal_record(ride)
+        if @rides.keys.include?(ride)
+            lowest_time(ride)
+        end
+    end
 end
