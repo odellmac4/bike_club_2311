@@ -9,6 +9,7 @@ RSpec.describe BikeClub do
 
       @biker1 = Biker.new("Kenny", 30)
       @biker2 = Biker.new("Athena", 15)
+      @biker3 = Biker.new("Odell", 25)
 
       @bike_club = BikeClub.new("Wild Hogs")
     end
@@ -93,6 +94,20 @@ RSpec.describe BikeClub do
             @bike_club.add_biker(@biker2)
 
             expect(@bike_club.best_time(@ride2)).to eq (@biker2)
+        end
+    end
+
+    describe '#bikers_eligible(ride)' do
+        it 'returns array of bikers eligible for a specific ride' do
+            @bike_club.add_biker(@biker1)
+            @bike_club.add_biker(@biker3)
+
+            @biker1.learn_terrain!(:hills)
+            @biker3.learn_terrain!(:gravel)
+            expect(@bike_club.bikers_eligible(@ride1)).to eq ([@biker1])
+
+            @biker3.learn_terrain!(:hills)
+            expect(@bike_club.bikers_eligible(@ride1)).to eq ([@biker1, @biker3])
         end
     end
 end
