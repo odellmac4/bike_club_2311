@@ -31,6 +31,8 @@ class Biker
     def personal_record(ride)
         if @rides.keys.include?(ride)
             lowest_time(ride)
+        else
+            false
         end
     end
 end
