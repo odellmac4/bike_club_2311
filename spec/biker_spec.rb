@@ -18,5 +18,21 @@ RSpec.describe Biker do
       it 'has a max distance' do
         expect(@biker.max_distance).to eq 30
       end
+
+      it 'has rides' do 
+        expect(@biker.rides).to eq ({})
+      end
+
+      it 'has acceptable terrains' do
+        expect(@biker.acceptable_terrain).to eq ([])
+      end
+    end
+
+    describe '#learn_terrain!' do
+        it 'can learn terrains' do
+            @biker.learn_terrain!(:gravel)
+            @biker.learn_terrain!(:hills)
+            expect(@biker.acceptable_terrain).to eq ([:gravel, :hills])
+        end
     end
 end
