@@ -14,4 +14,16 @@ RSpec.describe Ride do
         expect(@ride1.name).to eq("Walnut Creek Trail")
       end
     end
+
+    describe '#loop?' do
+        it 'does it loop?' do 
+            expect(@ride1.loop?).to eq false
+        end
+    end
+
+    describe '#total_distance' do
+        it 'The total distance is double the base distance if the ride is not a loop' do
+            expect(@ride1.total_distance).to eq 21.4
+        end
+    end
 end
