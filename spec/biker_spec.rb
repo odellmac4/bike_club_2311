@@ -41,6 +41,14 @@ RSpec.describe Biker do
         end
     end
 
+    describe '#can_ride?' do
+        it 'determines if biker matches qualifications to ride a ride' do
+            @biker.learn_terrain!(:gravel)
+            expect(@biker.can_ride?(@ride1)).to eq false
+            expect(@biker.can_ride?(@ride2)).to eq true
+        end
+    end
+
     describe '#log_ride' do
         it 'logs previous rides and times for those rides. will not log if the rides terrain isnt acceptable and the rides total distance is greater than biker max distance.' do
             @biker.learn_terrain!(:gravel)
