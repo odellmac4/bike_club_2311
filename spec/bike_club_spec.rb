@@ -37,7 +37,7 @@ RSpec.describe BikeClub do
     end
 
     describe '#most_rides' do
-        it 'can tell us which Biker has logged the most rides' do
+        it 'can tell us which Biker has logged the most (diiferent types) of rides' do
             @biker1.learn_terrain!(:gravel)
             @biker1.learn_terrain!(:hills)
             @biker2.learn_terrain!(:gravel)
@@ -63,7 +63,36 @@ RSpec.describe BikeClub do
             @bike_club.add_biker(@biker2)
 
             expect(@bike_club.most_rides).to eq (@biker1)
-            require'pry';binding.pry
+        end
+    end
+
+    describe '#best_time(ride)' do
+        it 'returns biker object with lowest time for a ride' do
+            @biker1.learn_terrain!(:gravel)
+            @biker1.learn_terrain!(:hills)
+            @biker2.learn_terrain!(:gravel)
+            @biker2.learn_terrain!(:hills)
+            
+            @biker1.log_ride(@ride1, 92.5)
+            @biker1.log_ride(@ride1, 91.1)
+            @biker1.log_ride(@ride1, 60.9)
+            @biker1.log_ride(@ride2, 59.7)
+            @biker2.log_ride(@ride2, 61.6)
+            @biker2.log_ride(@ride2, 58.9)
+
+            expect(@biker1.rides).to eq ({
+                @ride1 => [92.5, 91.1, 60.9],
+                @ride2 => [59.7]
+            })
+
+            expect(@biker2.rides).to eq ({
+                @ride2 => [61.6, 58.9]
+            })
+
+            @bike_club.add_biker(@biker1)
+            @bike_club.add_biker(@biker2)
+
+            expect(@bike_club.best_time(@ride2)).to eq (@biker2)
         end
     end
 end
